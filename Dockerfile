@@ -41,7 +41,8 @@ RUN sudo rosdep init
 RUN rosdep update
 RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash; mkdir -p ~/catkin_ws/src; cd ~/catkin_ws; catkin_make'
 
-RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/tjdalsckd/panda_simulator.git;git clone https://github.com/justagist/franka_ros_interface.git;git clone https://github.com/ros-planning/panda_moveit_config.git -b melodic-devel;git clone https://github.com/ros-planning/moveit_tutorials.git -b master"
+RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/tjdalsckd/panda_simulator_with_realsense.git panda_simulator;git clone https://github.com/justagist/franka_ros_interface.git;git clone https://github.com/ros-planning/panda_moveit_config.git -b melodic-devel;git clone https://github.com/ros-planning/moveit_tutorials.git -b master; git clone https://github.com/tjdalsckd/realsense_gazebo_plugin_smc.git"
+RUN apt-get update;
 RUN apt-get install -y ros-noetic-panda-moveit-config
 RUN apt-get install  -y ros-noetic-effort-controllers
 RUN apt-get install -y  ros-noetic-franka-ros
@@ -54,11 +55,15 @@ RUN apt install -y  dirmngr gnupg apt-transport-https ca-certificates software-p
 RUN curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 RUN add-apt-repository "deb https://download.sublimetext.com/ apt/stable/"
 RUN apt install -y  sublime-text
-RUN /bin/bash -c "cd ~/catkin_ws/src;git clone https://github.com/justagist/franka_panda_description.git"
+RUN /bin/bash -c "cd ~/catkin_ws/src;git clone https://github.com/tjdalsckd/franka_panda_description.git"
 RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash; mkdir -p ~/catkin_ws/src; cd ~/catkin_ws; catkin_make'
 RUN apt-get install -y python3-pip
 RUN apt-get install -y  ros-noetic-moveit
 RUN /bin/bash -c "pip install future;pip install numpy-quaternion; pip install -U numpy; pip install -U rospy_message_converter;"
+RUN /bin/bash -c "cd /usr/include; ln -s eigen3/Eigen Eigen;"
+COPY id_rsa /root/.ssh/
+COPY id_rsa.pub /root/.ssh/
+COPY panda_controller_libfranka /root/panda_controller_libfranka
 
 
 
