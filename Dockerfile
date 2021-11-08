@@ -41,7 +41,7 @@ RUN sudo rosdep init
 RUN rosdep update
 RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash; mkdir -p ~/catkin_ws/src; cd ~/catkin_ws; catkin_make'
 
-RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/tjdalsckd/panda_simulator_with_realsense.git panda_simulator;git clone https://github.com/justagist/franka_ros_interface.git;git clone https://github.com/ros-planning/panda_moveit_config.git -b melodic-devel;git clone https://github.com/ros-planning/moveit_tutorials.git -b master; git clone https://github.com/tjdalsckd/realsense_gazebo_plugin_smc.git"
+RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/tjdalsckd/panda_simulator_with_realsense.git panda_simulator;git clone https://github.com/justagist/franka_ros_interface.git;git clone https://github.com/ros-planning/panda_moveit_config.git -b melodic-devel;git clone https://github.com/ros-planning/moveit_tutorials.git -b master; git clone https://github.com/tjdalsckd/realsense_gazebo_plugin_smc.git; "
 RUN apt-get update;
 RUN apt-get install -y ros-noetic-panda-moveit-config
 RUN apt-get install  -y ros-noetic-effort-controllers
