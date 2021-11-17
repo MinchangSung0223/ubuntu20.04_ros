@@ -61,9 +61,12 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y  ros-noetic-moveit
 RUN /bin/bash -c "pip install future;pip install numpy-quaternion; pip install -U numpy; pip install -U rospy_message_converter;"
 RUN /bin/bash -c "cd /usr/include; ln -s eigen3/Eigen Eigen;"
-COPY id_rsa /root/.ssh/
-COPY id_rsa.pub /root/.ssh/
-COPY panda_controller_libfranka /root/panda_controller_libfranka
+RUN apt-get install -y python3-catkin-tools
+RUN /bin/bash -c "rm -r ~/catkin_ws/*;mkdir -p ~/catkin_ws/src; cd ~/catkin_ws/src;    git clone  https://github.com/tjdalsckd/panda_simulator"
+RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/ros-planning/moveit_calibration.git;  git clone https://github.com/tjdalsckd/realsense_gazebo_plugin_smc.git"
+RUN /bin/bash -c "echo 'cd ~/catkin_ws/src/panda_simulator;'>> ~/.bashrc"
+RUN apt-get install -y gedit
+RUN apt-get install -y terminator
 
 
 
