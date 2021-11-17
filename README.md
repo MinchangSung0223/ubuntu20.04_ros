@@ -26,3 +26,7 @@ Docker는 Dokerfile을 이용하여 설치명령어를 작성합니다. Dokerfil
     git clone https://github.com/tjdalsckd/ros2_docker_ubuntu20.04.git
     bash build.sh
 ```
+3. 도커 내부
+```bash
+  bash build_ws.sh
+```
