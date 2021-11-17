@@ -63,10 +63,18 @@ RUN /bin/bash -c "pip install future;pip install numpy-quaternion; pip install -
 RUN /bin/bash -c "cd /usr/include; ln -s eigen3/Eigen Eigen;"
 RUN apt-get install -y python3-catkin-tools
 RUN /bin/bash -c "rm -r ~/catkin_ws/*;mkdir -p ~/catkin_ws/src; cd ~/catkin_ws/src;    git clone  https://github.com/tjdalsckd/panda_simulator"
-RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/ros-planning/moveit_calibration.git;  git clone https://github.com/tjdalsckd/realsense_gazebo_plugin_smc.git"
+RUN /bin/bash -c "cd ~/catkin_ws/src; git clone https://github.com/ros-planning/moveit_calibration.git;  git clone https://github.com/tjdalsckd/realsense_gazebo_plugin_smc.git; git clone https://github.com/tjdalsckd/handeye;git clone https://github.com/tjdalsckd/baldor;git clone https://github.com/IntelRealSense/realsense-ros.git "
 RUN /bin/bash -c "echo 'cd ~/catkin_ws/src/panda_simulator;'>> ~/.bashrc"
 RUN apt-get install -y gedit
 RUN apt-get install -y terminator
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+RUN add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
+RUN apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev;
+
+RUN /bin/bash -c "source /opt/ros/noetic/setup.bash; apt-get install -y ros-melodic-ddynamic-reconfigure; apt-get install -y ros-noetic-realsense2-camera; cd ~/catkin_ws/src/panda_simulator; bash build_ws.sh; pip3 install scipy"
+RUN /bin/bash -c "echo 'source ~/catkin_ws/devel/setup.bash;'>> ~/.bashrc"
+
+
 
 
 
